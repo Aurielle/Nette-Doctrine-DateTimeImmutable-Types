@@ -22,14 +22,6 @@ class DateTimeImmutableTypesExtension extends Nette\DI\CompilerExtension
 		'method' => self::REGISTER_ADD,
 	];
 
-	/** @var array */
-	private static $types = [
-		DateTimeImmutable\DateImmutableType::class,
-		DateTimeImmutable\DateTimeImmutableType::class,
-		DateTimeImmutable\DateTimeTzImmutableType::class,
-		DateTimeImmutable\TimeImmutableType::class,
-	];
-
 
 	public function loadConfiguration()
 	{
@@ -50,21 +42,11 @@ class DateTimeImmutableTypesExtension extends Nette\DI\CompilerExtension
 		}
 
 		if (in_array($config['method'], [self::REGISTER_ADD, self::REGISTER_ADD_REPLACE], TRUE)) {
-			foreach (self::$types as $type) {
-				$initialize->addBody(
-					'\Doctrine\DBAL\Types\Type::addType(?, ?);',
-					[$type::NAME, $type]
-				);
-			}
+			$initialize->addBody('Grifart\NetteDoctrineDateTimeImmutableTypes\TypeRegistrar::addImmutableTypes();');
 		}
 
 		if (in_array($config['method'], [self::REGISTER_REPLACE, self::REGISTER_ADD_REPLACE], TRUE)) {
-			foreach (self::$types as $type) {
-				$initialize->addBody(
-					'\Doctrine\DBAL\Types\Type::overrideType(?, ?);',
-					[str_replace('_immutable', '', $type::NAME), $type]
-				);
-			}
+			$initialize->addBody('Grifart\NetteDoctrineDateTimeImmutableTypes\TypeRegistrar::replaceImmutableTypes();');
 		}
 	}
 }
