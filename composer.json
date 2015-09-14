@@ -1,0 +1,24 @@
+{
+	"name": "grifart/nette-doctrine-datetimeimmutable-types",
+	"type": "library",
+	"description": "Integration of VasekPurchart/Doctrine-Date-Time-Immutable-Types into Nette via DI extension",
+	"homepage": "https://github.com/grifart/Nette-Doctrine-DateTimeImmutable-Types",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Václav Vrbka",
+			"email": "vaclav.vrbka@grifart.cz",
+			"homepage": "https://grifart.cz"
+		}
+	],
+	"require": {
+		"php": ">=5.5.0",
+		"nette/di": "~2.3",
+		"vasek-purchart/doctrine-date-time-immutable-types": "0.*"
+	},
+	"autoload": {
+		"psr-4": {
+			"Grifart\\NetteDoctrineDateTimeImmutableTypes": "src/"
+		}
+	}
+}
